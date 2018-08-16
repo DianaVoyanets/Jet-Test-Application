@@ -17,7 +17,7 @@ export default class PopupView extends JetView {
 				localId: "form",
 				elements:[
 					{ view:"textarea", label:"Details", name:"Details",invalidMessage:"Type can not be empty"},
-					{ view:"combo", label:"TypeID", name:"TypeID",options: { body:{template:"#Value#",data:activity_type_collection}},invalidMessage:"Type can not be empty" },
+					{ view:"combo", label:"Type", name:"TypeID",options: { body:{template:"#Value#",data:activity_type_collection}},invalidMessage:"Type can not be empty" },
 					{ view:"combo", label:"Contacts", name:"ContactID",options: { body:{template:"#FirstName#"+ " " + "#LastName#",data:contacts_collection}},invalidMessage:"Contact can not be empty"},
 					{ margin:5, cols:[
 						{ view:"datepicker", label:"Data",name:"DueDate",format:"%d-%m-%Y"},
@@ -28,10 +28,7 @@ export default class PopupView extends JetView {
 						{view:"spacer"},
 						{view:"button",localId:"add_save_button",width: 110,
 							click: () => {
-								if(!this.getValues().id) {
-									this.add();
-								}
-								else this.update();
+								this.saveDate();
 							}
 						},
 						{view:"button",value: "Cancel",width: 110,click:()=> this.$$("form-popup").hide()},
@@ -47,7 +44,7 @@ export default class PopupView extends JetView {
 			}
 		};
 	}
-    
+
 	getForm() {
 		return this.$$("form");
 	}
@@ -56,30 +53,34 @@ export default class PopupView extends JetView {
 		return this.getForm().getValues();
 	}
     
+	saveDate() {
+		if(this.getForm().validate()) {
+			if(!this.getValues().id) {
+				activity_collection.add(this.getValues());
+			}
+			else {
+				activity_collection.updateItem(this.getValues().id,this.getValues());
+			}
+			this.hideWindow();
+		}
+	}
+    
 	showWindow(id) {
 		if (id) {
 			let values = activity_collection.getItem(id);
 			this.getForm().setValues(values);
 		} else {
-			this.getForm().clear();	
+			this.getForm().clear();
 		}
 		this.getRoot().show();
 		this.$$("add_save_button").setValue(id ? "Save" : "Add");
 		this.$$("form-popup").getHead().setHTML(id ? "Edit activity" : "Add activity");
 	}
     
-	add() {
-		if (this.getForm().validate()) {
-			activity_collection.add(this.getValues());
-			this.getForm().hide();
-		}
-	}
-    
-	update() {
-		if (this.getForm().validate()) {
-			activity_collection.updateItem(this.getValues().id,this.getValues());
-			this.getForm().hide();
-		}
+	hideWindow() {
+		this.getForm().hide();
+		this.getForm().clear();
+		this.getForm().clearValidation();
 	}
 }
 

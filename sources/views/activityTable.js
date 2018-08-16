@@ -24,7 +24,7 @@ export default class DataView extends JetView {
 			localId: "activityDataTable",
 			columns:[
 				{ id:"State",header:"",template:"{common.checkbox()}",width: 50,value: true},
-				{ id:"TypeID", header:["Activity type",{content:"selectFilter"}], width:250,sort:"string",options: activity_type_collection},
+				{ id:"TypeID", header:["Activity type",{content:"selectFilter"}], width:250,sort:"string",options: activity_type_collection,fillspace:true},
 				{ id:"DueDate", header:["Due data",{ content:"datepickerFilter"}],width:250,sort:"date", format:webix.i18n.dateFormatStr},
 				{ id:"Details", header:["Details",{content:"textFilter"}],width:250,sort:"string"},
 				{ id:"ContactID", header:["Contact",{content:"selectFilter"}],width:250,sort:"string",options: contacts_collection},
