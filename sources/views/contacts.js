@@ -28,7 +28,7 @@ export default class Contacts extends JetView {
 				type:"htmlbutton",
 				label:"<i class='fa fa-plus-square'> Add contact</i>",
 				width: 350,
-				click: () => this.show("settings")
+				click: () => this.show("contactsForm")
 			}]
 		};
         
