@@ -71,8 +71,8 @@ export default class ContactsInformation extends JetView {
 	}
     
 	urlChange(view) {
-		let id = this.getParam("id");
-		contacts_collection.waitData.then(()=>{
+		let id = this.getParam("id",true);
+		webix.promise.all([contacts_collection.waitData,status_collection.waitData]).then(()=>{
 			if (id && contacts_collection.exists(id)) {
 				let contactsValues = contacts_collection.getItem(id);
                 
