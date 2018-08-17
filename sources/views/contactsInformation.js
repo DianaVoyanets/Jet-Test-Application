@@ -26,7 +26,11 @@ export default class ContactsInformation extends JetView {
 				type: "icon",
 				icon: "edit",
 				label: "Edit",
-				width: 90
+				width: 90,
+				click:() => {
+					let id = this.getParam("id", true);
+					this.show("contactsForm?id=" + id);
+				}
 			}]
 		};
          
@@ -85,6 +89,8 @@ export default class ContactsInformation extends JetView {
 				let statusValueId = contactsValues.StatusID;
 				if (!status_collection.exists(statusValueId)) {
 					this.$$("avatar-template").parse({Value: "No Status",Icon: "No Icon"});
+				} else {
+					this.$$("avatar-template").setValues(status_collection.getItem(statusValueId));
 				}
 			}
 		});
