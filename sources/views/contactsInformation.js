@@ -66,7 +66,7 @@ export default class ContactsInformation extends JetView {
 				return (
 					`${obj.Photo ? 
 						`<figure class='user-photo'><img src='${obj.Photo}'><figcaption><b>${obj.Icon}</b></figcaption></figure>` : 
-						`<div class='webix_icon fa-info-circle'></div><div class="icon"><b>${obj.Icon}</b></div>`
+						`<div class='webix_icon fa-info-circle user_photo_template'></div><div class="icon"><b>${obj.Icon}</b></div>`
 					}`
 				);
 			} 

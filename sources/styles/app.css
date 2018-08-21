@@ -155,7 +155,7 @@ status_good{
     margin-top: 3%;
 }
 
-.list-photo {
+.list_photo {
     width: 60px;
     height: 60px;
     margin: 10px;
@@ -184,17 +184,31 @@ span.list-information {
     margin-top: 30px !important;
 }
 
-.webix_template .fa-info-circle {
-    width: 220px;
-    text-align: center; 
+.user_photo_template {
+    font-size: 170px;
+    width: 190px;
+    text-align: right;
+    margin: 10px;
 }
 
-.fa-info-circle {
-    font-size: 170px;
-    width:65px;
-    margin-left: 15px;
+.form_user_photo {
+    font-size: 140px;
+    width: 165px;
+    text-align:center
 }
 
 .icon {
     text-align: center;
+}
+
+.user_photo_form {
+   width: 150px;
+   height: 150px;
+   position: absolute;
+}
+
+.list_photo_info_circle {
+    width: 60px;
+    font-size: 70px;
+    margin:8px;
 }

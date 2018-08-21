@@ -26,7 +26,9 @@ export default class ContactsForm extends JetView {
 					{cols:[
 						{ localId:"userPhotoForm", name:"Photo",width:200,height:150,
 							template: (obj) => {
-								return `${obj.src ? `<img src='${obj.src}' style='width: 150px;height: 150px;position: absolute;'>` : "<div class='webix_icon fa-info-circle' style='font-size: 140px;width:150px;text-align:center'></div>"}`;
+								return `${obj.src ? 
+									`<img class="user_photo_form" src='${obj.src}'>` : 
+									"<div class='webix_icon fa-info-circle form_user_photo'></div>"}`;
 							},
 						},
 						{ margin: 7,css:"change-remove-buttons",rows: [

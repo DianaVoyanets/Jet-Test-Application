@@ -12,7 +12,7 @@ export default class Contacts extends JetView {
 				template:(obj) => {
 					return (
 						`<div>
-                        ${obj.Photo ? `<img class="list-photo" src='${obj.Photo}'><span class="list-information">${obj.FirstName} ${obj.LastName}</span>` : `<div class='webix_icon fa-info-circle list-photo'style='font-size: 70px;margin:8px;width:60,height:60'></div><span class="list-information">${obj.FirstName} ${obj.LastName}</span>`}</div>`
+                        ${obj.Photo ? `<img class="list_photo" src='${obj.Photo}'><span class="list-information">${obj.FirstName} ${obj.LastName}</span>` : `<div class='webix_icon fa-info-circle list_photo_info_circle'></div><span class="list-information">${obj.FirstName} ${obj.LastName}</span>`}</div>`
 					);
 				},
 				on: {
