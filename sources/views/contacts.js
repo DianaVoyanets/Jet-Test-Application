@@ -3,15 +3,18 @@ import {contacts_collection} from "models/contacts-collection";
 
 export default class Contacts extends JetView {
 	config() {
-        
 		var contactsList = {
 			rows: [{	
 				view: "list",
 				id: "contacts-list",
 				select: true,
-				gravity: 0.5,
 				css: "contacts_list",
-				template:"<div>#FirstName# #LastName#<br>#Email#</div>",
+				template:(obj) => {
+					return (
+						`<div>
+                        ${obj.Photo ? `<img class="list-photo" src='${obj.Photo}'><span class="list-information">${obj.FirstName} ${obj.LastName}</span>` : `<div class='webix_icon fa-info-circle list-photo'style='font-size: 70px;margin:8px;width:60,height:60'></div><span class="list-information">${obj.FirstName} ${obj.LastName}</span>`}</div>`
+					);
+				},
 				on: {
 					"onAfterSelect": (id) => {
 						var path =  "/top/contacts?id="+ id + "/contactsInformation";
@@ -23,12 +26,15 @@ export default class Contacts extends JetView {
 			},
 			{ 
 				view: "button",
-				name:"Add",
 				id:"add_button",
-				type:"htmlbutton",
-				label:"<i class='fa fa-plus-square'> Add contact</i>",
+				type:"iconButton",
+				icon: "plus",
+				label:"Add contacts",
+				css: "add_contact",
 				width: 350,
-				click: () => this.show("contactsForm")
+				click: () => {
+					this.show("contactsForm");
+				} 
 			}]
 		};
         
@@ -40,19 +46,27 @@ export default class Contacts extends JetView {
 				]}
 			]
 		};
-        
 		return ui;  
 	}
     
-	init() {
-		this.$$("contacts-list").sync(contacts_collection);
+	getContactsList() {
+		return this.$$("contacts-list");
 	}
 
-	urlChange(view) {
+	init() {
+		this.getContactsList().sync(contacts_collection);
+		this.on(this.app,"onDataDelete",() => this.getContactsList().select(this.getContactsList().getFirstId()));
+	}
+
+	urlChange() {
 		contacts_collection.waitData.then(()=>{
 			var id = this.getParam("id") || contacts_collection.getFirstId();
 			if (contacts_collection.exists(id)) {
-				view.queryView({view:"list"}).select(id);
+				this.getContactsList().select(id);
+			}
+			else {
+				this.getContactsList().select(this.getContactsList().getFirstId());
+				this.getContactsList().showItem(id);
 			}
 		});
 	}

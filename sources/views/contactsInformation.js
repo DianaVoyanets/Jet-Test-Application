@@ -1,6 +1,9 @@
 import {JetView} from "webix-jet";
-import  {contacts_collection} from "models/contacts-collection";
+import {contacts_collection} from "models/contacts-collection";
+import {activity_collection} from "models/activity-collection";
 import {status_collection} from "models/status-collection";
+import contactsMultiview from "views/contactsMultiview";
+import {files_collection} from "models/files";
 
 export default class ContactsInformation extends JetView {
 	config() {
@@ -20,16 +23,37 @@ export default class ContactsInformation extends JetView {
 				icon: "trash",
 				label: "Delete",
 				width: 90,
-			},
+				click: () => {
+					let app = this.app;
+					let id = this.getParam("id",true);
+					webix.confirm({
+						text: "Do you still want to remove this contact?",
+						callback: function(result) {
+							if (result) {
+								let activitiesIds = activity_collection
+									.find((activity) => activity.ContactID == id)
+									.map((activity) => activity.id);
+                                
+								let filesIds = files_collection
+									.find((file) => file.ContactID == id)
+									.map((file) => file.id);
+                                
+								activity_collection.remove(activitiesIds);
+								files_collection.remove(filesIds);
+								contacts_collection.remove(id);
+								app.callEvent("onDataDelete",[]);
+							}
+						}
+					});
+				}},
 			{
 				view: "button",
 				type: "icon",
 				icon: "edit",
 				label: "Edit",
 				width: 90,
-				click:() => {
-					let id = this.getParam("id", true);
-					this.show("contactsForm?id=" + id);
+				click: () => {
+					this.show(`contactsForm?id=${this.getId()}`);
 				}
 			}]
 		};
@@ -37,60 +61,77 @@ export default class ContactsInformation extends JetView {
 		var avatarTemplate = {
 			view: "template", 
 			localId: "avatar-template",
-			gravity: 0.6,
-			template: 
-                `<div class="col-1">
-                    <figure><div class='avatar'></div><figcaption>#Value# #Icon#</figcaption</figure>
-                </div>`
+			gravity: 0.5,
+			template:(obj) => {				
+				return (
+					`${obj.Photo ? 
+						`<figure class='user-photo'><img src='${obj.Photo}'><figcaption><b>${obj.Icon}</b></figcaption></figure>` : 
+						`<div class='webix_icon fa-info-circle'></div><div class="icon"><b>${obj.Icon}</b></div>`
+					}`
+				);
+			} 
 		};
 
 		var iconTemplate = {
 			view: "template", 
 			localId:"icon-template",
-			template:
-                `<div class='wrapper'> 
-                    <div class="col-2">
-                        <span><i class='fa fa-envelope'> email: </i>#Email#</span>
-                        <span><i class='fa fa-skype'> skype: </i>#Skype#</span>
-                        <span><i class='fa fa-tag'> job: </i>#Job#</span>
-                    </div>
-                    <div class="col-3">
-                        <span><i class='fa fa-briefcase'> company: </i>#Company#</span>
-                        <span><i class='fa fa-calendar'> date of birth: </i>#Birthday#</span>
-                        <span><i class='fa fa-map-marker'> location: </i>#Company#</span>
-                    </div>
-                </div>`
+			template: (obj) =>{
+				return (
+					`<div class='wrapper'> 
+                        <div class="col-2">
+                            <span><i class='fa fa-envelope'> <b>Email:</b> </i>${obj.Email}</span>
+                            <span><i class='fa fa-skype'> <b>Skype:</b></i>${obj.Skype}</span>
+                            <span><i class='fa fa-tag'> <b>Job:</b></i>${obj.Job}</span>
+                        </div>
+                        <div class="col-3">
+                            <span><i class='fa fa-briefcase'> <b>Company:</b></i>${obj.Company}</span>
+                            <span><i class='fa fa-calendar'> <b>Date of birth:</b> </i>${ webix.i18n.longDateFormatStr(obj.Birthday)}</span>
+                            <span><i class='fa fa-map-marker'> <b>Location:</b></i>${obj.Address}</span>
+                        </div>
+                    </div>`
+				);
+			}
 		};
-
+        
 		var ui = {
 			rows: [
 				toolbar,
 				{cols: [
 					avatarTemplate,
-					iconTemplate
-				]}
-
+					iconTemplate,
+				]},
+				contactsMultiview,
 			],
 		};
         
 		return ui;
 	}
     
+	getId() {
+		return this.getParam("id",true);
+	}
+    
 	urlChange(view) {
-		let id = this.getParam("id",true);
-
+		let avatarTemplate = this.$$("avatar-template");
 		webix.promise.all([contacts_collection.waitData,status_collection.waitData]).then(()=>{
-			if (id && contacts_collection.exists(id)) {
-				let contactsValues = contacts_collection.getItem(id);
+			if (this.getId() && contacts_collection.exists(this.getId())) {
+				let contactsValues = contacts_collection.getItem(this.getId());
                 
 				view.queryView({view:"label"}).setValue(contactsValues.FirstName + " " + contactsValues.LastName);
 				this.$$("icon-template").setValues(contactsValues);
-		
+                
 				let statusValueId = contactsValues.StatusID;
 				if (!status_collection.exists(statusValueId)) {
-					this.$$("avatar-template").parse({Value: "No Status",Icon: "No Icon"});
+					avatarTemplate.parse({
+						Value: "No Status", 
+						Icon: "No Icon",
+						Photo: contactsValues.Photo
+					});
 				} else {
-					this.$$("avatar-template").setValues(status_collection.getItem(statusValueId));
+					avatarTemplate.setValues({
+						...status_collection.getItem(statusValueId),
+						Photo: contactsValues.Photo
+					});
 				}
 			}
 		});
