@@ -7,6 +7,7 @@ import {files_collection} from "models/files";
 
 export default class ContactsInformation extends JetView {
 	config() {
+
 		var toolbar = {
 			view: "toolbar",
 			localId: "my_toolbar",
@@ -22,7 +23,7 @@ export default class ContactsInformation extends JetView {
 				type: "icon",
 				icon: "trash",
 				label: "Delete",
-				width: 90,
+				width: 120,
 				click: () => {
 					let app = this.app;
 					let id = this.getParam("id",true);
@@ -51,7 +52,7 @@ export default class ContactsInformation extends JetView {
 				type: "icon",
 				icon: "edit",
 				label: "Edit",
-				width: 90,
+				width: 120,
 				click: () => {
 					this.show(`contactsForm?id=${this.getId()}`);
 				}
@@ -64,7 +65,7 @@ export default class ContactsInformation extends JetView {
 			gravity: 0.5,
 			template:(obj) => {				
 				return (
-					`${obj.Photo ? 
+					`${obj.Photo && obj.Photo !==" "? 
 						`<figure class='user-photo'><img src='${obj.Photo}'><figcaption><b>${obj.Icon}</b></figcaption></figure>` : 
 						`<div class='webix_icon fa-info-circle user_photo_template'></div><div class="icon"><b>${obj.Icon}</b></div>`
 					}`
@@ -79,14 +80,14 @@ export default class ContactsInformation extends JetView {
 				return (
 					`<div class='wrapper'> 
                         <div class="col-2">
-                            <span><i class='fa fa-envelope'> <b>Email:</b> </i>${obj.Email}</span>
-                            <span><i class='fa fa-skype'> <b>Skype:</b></i>${obj.Skype}</span>
-                            <span><i class='fa fa-tag'> <b>Job:</b></i>${obj.Job}</span>
+                            <span><i class='fa fa-envelope'> <b>"Email":</b> </i>${obj.Email}</span>
+                            <span><i class='fa fa-skype'> <b>"Skype":</b></i>${obj.Skype}</span>
+                            <span><i class='fa fa-tag'> <b>"Job":</b></i>${obj.Job}</span>
                         </div>
                         <div class="col-3">
-                            <span><i class='fa fa-briefcase'> <b>Company:</b></i>${obj.Company}</span>
-                            <span><i class='fa fa-calendar'> <b>Date of birth:</b> </i>${ webix.i18n.longDateFormatStr(obj.Birthday)}</span>
-                            <span><i class='fa fa-map-marker'> <b>Location:</b></i>${obj.Address}</span>
+                            <span><i class='fa fa-briefcase'> <b>"Company":</b></i>${obj.Company}</span>
+                            <span><i class='fa fa-calendar'> <b>"Date of birth:"</b> </i>${ webix.i18n.longDateFormatStr(obj.Birthday)}</span>
+                            <span><i class='fa fa-map-marker'> <b>"Location":</b></i>${obj.Address}</span>
                         </div>
                     </div>`
 				);
@@ -111,13 +112,13 @@ export default class ContactsInformation extends JetView {
 		return this.getParam("id",true);
 	}
     
-	urlChange(view) {
+	urlChange() {
 		let avatarTemplate = this.$$("avatar-template");
 		webix.promise.all([contacts_collection.waitData,status_collection.waitData]).then(()=>{
 			if (this.getId() && contacts_collection.exists(this.getId())) {
 				let contactsValues = contacts_collection.getItem(this.getId());
                 
-				view.queryView({view:"label"}).setValue(contactsValues.FirstName + " " + contactsValues.LastName);
+				this.$$("mylabel").setValue(contactsValues.FirstName + " " + contactsValues.LastName);
 				this.$$("icon-template").setValues(contactsValues);
                 
 				let statusValueId = contactsValues.StatusID;
