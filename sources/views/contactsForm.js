@@ -24,7 +24,7 @@ export default class ContactsForm extends JetView {
 					{ view:"text",label:"Phone",name:"Phone",invalidMessage: "Phone number can not be string"},
 					{ view:"datepicker",label:"Birthday",name: "Birthday",format:"%d-%m-%Y"},
 					{cols:[
-						{ localId:"userPhotoForm", name:"Photo",width:200,height:150,
+						{ localId:"userPhotoForm",width:200,height:150,
 							template: (obj) => {
 								return `${obj.src ? 
 									`<img class="user_photo_form" src='${obj.src}'>` : 

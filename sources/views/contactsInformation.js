@@ -80,14 +80,14 @@ export default class ContactsInformation extends JetView {
 				return (
 					`<div class='wrapper'> 
                         <div class="col-2">
-                            <span><i class='fa fa-envelope'> <b>"Email":</b> </i>${obj.Email}</span>
-                            <span><i class='fa fa-skype'> <b>"Skype":</b></i>${obj.Skype}</span>
-                            <span><i class='fa fa-tag'> <b>"Job":</b></i>${obj.Job}</span>
+                            <span><i class='fa fa-envelope'> <b>Email:</b> </i>${obj.Email}</span>
+                            <span><i class='fa fa-skype'> <b>Skype:</b></i>${obj.Skype}</span>
+                            <span><i class='fa fa-tag'> <b>Job:</b></i>${obj.Job}</span>
                         </div>
                         <div class="col-3">
-                            <span><i class='fa fa-briefcase'> <b>"Company":</b></i>${obj.Company}</span>
-                            <span><i class='fa fa-calendar'> <b>"Date of birth:"</b> </i>${ webix.i18n.longDateFormatStr(obj.Birthday)}</span>
-                            <span><i class='fa fa-map-marker'> <b>"Location":</b></i>${obj.Address}</span>
+                            <span><i class='fa fa-briefcase'> <b>Company:</b></i>${obj.Company}</span>
+                            <span><i class='fa fa-calendar'> <b>Date of birth:</b> </i>${ webix.i18n.longDateFormatStr(obj.Birthday)}</span>
+                            <span><i class='fa fa-map-marker'> <b>Location:</b></i>${obj.Address}</span>
                         </div>
                     </div>`
 				);

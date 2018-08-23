@@ -78,16 +78,17 @@ export default class PopupView extends JetView {
 	}
     
 	showContactsWindow(id) {
-		if (typeof(id) == "string" ) {
-			this.getForm().setValues({ ContactID: id });
-			this.$$("contact").disable();
-		} else {
+		if (typeof(id) === "object") {
 			var values = activity_collection.getItem(id);
-			this.getForm().setValues(values);
+			this.getForm().setValues({ ContactID: id });
+			this.$$("form").setValues(values);
+		} else {
+			this.getForm().setValues({ ContactID: id });
 		}
+		this.$$("contact").disable();
 		this.getRoot().show();
-		this.$$("add_save_button").setValue(typeof(id) === "string" ? "Add" : "Save");
-		this.$$("form-popup").getHead().setHTML(typeof(id) === "string"  ? "Add activity" : "Edit activity");
+		this.$$("add_save_button").setValue(typeof(id) === "object" ? "Save" : "Add");
+		this.$$("form-popup").getHead().setHTML(typeof(id) === "object" ? "Edit activity" : "Add activity");
 	}
     
 	hideWindow() {

@@ -89,19 +89,15 @@ export default class contactsMultiview extends JetView {
 							{
 								view: "uploader",
 								width: 120,
+								autosend:false,
 								label: "Upload file", 
 								type: "iconButton", 
 								icon: "cloud-upload",
 								on: {
 									onBeforeFileAdd: (upload) => {
 										let file = upload.file;
-										let reader = new FileReader();
-										
-										reader.onload = () => {
-											let date = webix.i18n.dateFormatStr(new Date());
-											files_collection.add({ name: file.name,lastModifiedDate: date,size: file.size,ContactID:this.getId() });
-										};
-										reader.readAsDataURL(file);
+										let date = webix.i18n.dateFormatStr(new Date());
+										files_collection.add({ name: file.name,lastModifiedDate: date,size: file.size,ContactID:this.getId() });
 										return false;
 									}
 								}
