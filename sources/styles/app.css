@@ -1,4 +1,4 @@
-.webixappstart{
+/* .webixappstart{
     opacity:0;
 }
 .webixapp{
@@ -76,13 +76,16 @@
 	background: #34495e;
 	color:#ddd;
 }
+
 .app-left-panel .webix_menu .webix_list_item.webix_selected{
 	color:#fff;
 }
+
 .app-left-panel .webix_menu .webix_list_item:hover{
 	background-color: #f5f5f5;
 	color: #000;
 }
+
 .app-left-panel .webix_header .webix_template{
 	background-color: #34495e;
 	border-bottom:1px solid white;
@@ -100,7 +103,7 @@
 
 
 /* sync status */
-.status_good{
+status_good{
 	color:#ddd;
 }
 
@@ -121,7 +124,7 @@
 .webix_layout_toolbar.webix_toolbar .webix_img_btn, .webix_layout_toolbar.webix_toolbar .webix_img_btn_to {
     border: 1px solid;
     text-align: center;
-}
+} 
 
 .topLabel {
     background-color: #3498db;
@@ -143,11 +146,69 @@
    margin-left:30%;
 }
 
-span {
+.wrapper span {
     display: block;
     margin-bottom: 20px;
 }
 
 .wrapper {
     margin-top: 3%;
+}
+
+.list_photo {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    border-radius: 73%;
+}
+
+span.list-information {
+    position: absolute;
+    padding-top: 22px;
+}
+
+.user-photo img {
+    width: 200px;
+    height: 200px;
+}
+
+.user-photo figcaption {
+    text-align: center;
+}
+
+.add_contact.webix_el_button button{
+	text-align: center;
+}
+
+.webix_view.change-remove-buttons.webix_layout_line {
+    margin-top: 30px !important;
+}
+
+.user_photo_template {
+    font-size: 170px;
+    width: 190px;
+    text-align: right;
+    margin: 10px;
+}
+
+.form_user_photo {
+    font-size: 140px;
+    width: 165px;
+    text-align:center
+}
+
+.icon {
+    text-align: center;
+}
+
+.user_photo_form {
+   width: 150px;
+   height: 150px;
+   position: absolute;
+}
+
+.list_photo_info_circle {
+    width: 60px;
+    font-size: 70px;
+    margin:8px;
 }

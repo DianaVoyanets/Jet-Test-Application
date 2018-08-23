@@ -3,17 +3,13 @@ export var activity_collection = new webix.DataCollection({
 	save: "rest->http://localhost:8096/api/v1/activities/",
 	scheme:{
 		$save: function(obj) {
-			{
-				var DateParser = webix.Date.dateToStr("%d-%m-%Y");
-				obj.DueDate = DateParser(obj.DateParser);
-			}
+			var DateParser = webix.Date.dateToStr("%d-%m-%Y");
+			obj.DueDate = DateParser(obj.DueDate);
+		
 		},
 		$init: function(obj) {
-			{
-				var DateParser = webix.Date.strToDate("%d-%m-%Y");
-				obj.DueDate = DateParser(obj.DueDate);
-                
-			}
+			var DateParser = webix.Date.strToDate("%d-%m-%Y");
+			obj.DueDate = DateParser(obj.DueDate);
 		}
 	}
 });

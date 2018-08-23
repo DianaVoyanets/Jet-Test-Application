@@ -11,7 +11,7 @@ export default class DataView extends JetView {
 			view: "toolbar",
 			elements: [
 				{view: "spacer"},
-				{view: "button",name:"Add",id:"add_button",type:"htmlbutton",label:"<i class='fa fa-plus-square'> Add activity</i>",width:120,
+				{view: "button",name:"Add",id:"add_button",type:"iconButton",icon: "plus",label: "Add activity",width:120,
 					click:() => {
 						this._jetPopup.showWindow();
 					}
@@ -39,7 +39,7 @@ export default class DataView extends JetView {
 					webix.confirm({
 						text:"Do you still want to remove field?",
 						callback: function(result) {
-							if(result) {
+							if (result) {
 								activity_collection.remove(id);
 								return false;
 							}
