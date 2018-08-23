@@ -6,12 +6,13 @@ import PopupView from "./form-activity";
 
 export default class DataView extends JetView {
 	config() {
-        
+		const _ = this.app.getService("locale")._;
+
 		var toolbar = {
 			view: "toolbar",
 			elements: [
 				{view: "spacer"},
-				{view: "button",name:"Add",id:"add_button",type:"iconButton",icon: "plus",label: "Add activity",width:120,
+				{view: "button",name:"Add",id:"add_button",type:"iconButton",icon: "plus",label: _("Add activity"),autowidth:true,
 					click:() => {
 						this._jetPopup.showWindow();
 					}
@@ -24,10 +25,10 @@ export default class DataView extends JetView {
 			localId: "activityDataTable",
 			columns:[
 				{ id:"State",header:"",template:"{common.checkbox()}",width: 50,value: true},
-				{ id:"TypeID", header:["Activity type",{content:"selectFilter"}], width:250,sort:"string",options: activity_type_collection,fillspace:true},
-				{ id:"DueDate", header:["Due data",{ content:"datepickerFilter"}],width:250,sort:"date", format:webix.i18n.dateFormatStr},
-				{ id:"Details", header:["Details",{content:"textFilter"}],width:250,sort:"string"},
-				{ id:"ContactID", header:["Contact",{content:"selectFilter"}],width:250,sort:"string",options: contacts_collection},
+				{ id:"TypeID", header:[_("Activity type"),{content:"selectFilter"}], width:250,sort:"string",options: activity_type_collection,fillspace:true},
+				{ id:"DueDate", header:[_("Due data"),{ content:"datepickerFilter"}],width:250,sort:"date", format:webix.i18n.dateFormatStr},
+				{ id:"Details", header:[_("Details"),{content:"textFilter"}],width:250,sort:"string"},
+				{ id:"ContactID", header:[_("Contact"),{content:"selectFilter"}],width:250,sort:"string",options: contacts_collection},
 				{ id:"pencil-icon", header:"",template: "{common.editIcon()}",width:50},
 				{ id:"trash-icon", header: "",template: "{common.trashIcon()}",width:50},
 			],

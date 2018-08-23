@@ -16,9 +16,9 @@ export default class PopupView extends JetView {
 				view:"form",
 				localId: "form",
 				elements:[
-					{ view:"textarea",label:"Details", name:"Details",invalidMessage:"Type can not be empty"},
-					{ view:"combo", label:"Type", name:"TypeID",options: { body:{template:"#Value#",data:activity_type_collection}},invalidMessage:"Type can not be empty" },
-					{ localId: "contact",view:"combo", label:"Contacts", name:"ContactID",options: { body:{template:"#FirstName#"+ " " + "#LastName#",data:contacts_collection}},invalidMessage:"Contact can not be empty"},
+					{ view:"textarea",label:"Details", name:"Details",invalidMessage:"Type can not be empty",required:true},
+					{ view:"combo", label:"Type", name:"TypeID",options: { body:{template:"#Value#",data:activity_type_collection}},invalidMessage:"Type can not be empty",required:true},
+					{ localId: "contact",view:"combo", label:"Contacts", name:"ContactID",options: { body:{template:"#FirstName#"+ " " + "#LastName#",data:contacts_collection}},invalidMessage:"Contact can not be empty",required:true},
 					{ margin:5, cols:[
 						{ view:"datepicker", label:"Data",name:"DueDate",format:"%d-%m-%Y"},
 						//{ view:"datepicker", label:"Time",type:"time",name: "Time"}
@@ -80,11 +80,12 @@ export default class PopupView extends JetView {
 	showContactsWindow(id) {
 		if (typeof(id) == "string" ) {
 			this.getForm().setValues({ ContactID: id });
-			this.$$("contact").disable();
 		} else {
 			var values = activity_collection.getItem(id);
 			this.getForm().setValues(values);
+            
 		}
+		this.$$("contact").disable();
 		this.getRoot().show();
 		this.$$("add_save_button").setValue(typeof(id) === "string" ? "Add" : "Save");
 		this.$$("form-popup").getHead().setHTML(typeof(id) === "string"  ? "Add activity" : "Edit activity");

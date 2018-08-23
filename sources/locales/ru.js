@@ -45,6 +45,7 @@ export default {
 	"Size": "Размер",
 	"Save": "Сохранить",
 	"Location": "Местонахождение",
-	"Date of birth" : "Дата рождения"
-
+	"Date of birth": "Дата рождения",
+	"Status Type": "Типы статусов",
+	"Activity Type": "Типы активностей"
 };

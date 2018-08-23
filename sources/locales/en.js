@@ -1,0 +1,51 @@
+export default {
+	/*app*/
+	"Contacts" : "Contacts",
+	"Activities": "Activities",
+	"Settings" : "Settings",
+    
+	/*Contacts*/
+	"Delete" : "Delete",
+	"Edit": "Edit",
+	"Add activity": "Add activity",
+	"Add contacts": "Add contacts",
+	"Files": "Files",
+	"Edit contact": "Edit contact",
+	"First name": "First name",
+	"Last name": "Last name",
+	"Joining date": "Joining date",
+	"Status": "Status",
+	"Job": "Job",
+	"Company": "Company",
+	"Website": "Website",
+	"Address": "Address",
+	"Email": "Email",
+	"Skype": "Skype",
+	"Phone": "Phone",
+	"Birthday": "Birthday",
+	"Change photo": "Change photo",
+	"Delete photo": "Delete photo",
+	"Cancel": "Cancel",
+	"OK": "OK",
+	"Completed": "Completed",
+	"Language": "Language",
+	"English": "English",
+	"Russian": "Russian",
+	"Upload file": "Upload file",
+	"Activity type": "Activity type",
+	"Location": "Location",
+
+	/*Activities*/
+    
+	"Due data": "Due data",
+	"Details": "Details",
+	"Contact": "Contact",
+	"Add": "Add",
+	"Save": "Save",
+	"Name": "Name",
+	"Change date": "Change data",
+	"Size": "Size",
+	"Date of birth": "Date of birth",
+	"Status Type": "Status Type",
+	"Activity Type": "Activity Type"
+};
