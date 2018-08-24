@@ -1,7 +1,7 @@
 import {JetView} from "webix-jet";
-import {activity_type_collection} from "models/activityType-collection";
-import {status_collection} from "models/status-collection";
-
+import TypePopupView from "views/status_activity_popup_form";
+import StatusTypeTable from "views/statusTypeTable";
+import ActivityTypeTable from "views/activityTypeTable";
 
 export default class Settings extends JetView {
 	config() {
@@ -22,74 +22,37 @@ export default class Settings extends JetView {
 			cells: [
 				{
 					header: _("Status Type"),
+					localId: "StatusesView",
 					body: {
 						rows: [
-							{	view: "datatable",
-								localId: "statusTypeTable",
-								editable:true,
-								columns: [
-									{id:"id",header:""},
-									{id:"Value",header:"Value",width: 300,editor:"text"},
-									{id:"Icon",header:"Icon",width: 300,editor:"text"},
-									{id:"trash-icon",header: "",template: "{common.trashIcon()}",fillspace:true},
-								],
-								onClick: {
-									"fa-trash": function(e, id) {
-										webix.confirm({
-											text:"Do you still want to remove field?",
-											callback: function(result) {
-												if (result) {
-													status_collection.remove(id);
-													return false;
-												}
-											}
-										});
-									}
-								}
-							},
-
+							StatusTypeTable,
 							{ cols: [
 								{view:"spacer"},
 								{view: "spacer"},
-								{view:"button",value: "Add statuses type",autowidth:true}
+								{view:"button",value: _("Add statuses type"),autowidth:true,
+									click:() => {
+										this._jetPopup.showWindow("Add statuses type");
+										this.show("settings?id=addStatuses");
+									}}
 							]
 							}
 						]
-
 					}
 				},
 				{
 					header: _("Activity Type"),
+					localId: "ActivitiesView",
 					body: {
 						rows: [
-							{
-								view: "datatable",
-								localId: "activityTypesTable",
-								editable:true,
-								columns: [
-									{id:"id",header:""},
-									{id:"Value",header:"Value",width: 300,editor:"text"},
-									{id:"Icon",header:"Icon",width: 300,editor:"text"},
-									{id:"trash-icon",header: "",template: "{common.trashIcon()}",fillspace:true}
-								],
-								onClick: {
-									"fa-trash": function(e, id) {
-										webix.confirm({
-											text:"Do you still want to remove field?",
-											callback: function(result) {
-												if (result) {
-													activity_type_collection.remove(id);
-													return false;
-												}
-											}
-										});
-									}
-								}
-							},
+							ActivityTypeTable,
 							{cols: [
 								{view:"spacer"},
 								{view: "spacer"},
-								{view:"button",value: "Add activities type",autowidth:true}
+								{view:"button",value: _("Add activities type"),autowidth:true,
+									click:() => {
+										this._jetPopup.showWindow("Add activity type");
+										this.show("settings?id=addActivity");
+									}}       
 							]
 							}
 						]
@@ -113,10 +76,9 @@ export default class Settings extends JetView {
 	}
     
 	init() {
-		this.$$("activityTypesTable").sync(activity_type_collection);
-		this.$$("statusTypeTable").sync(status_collection);
+		this._jetPopup = this.ui(TypePopupView);
 	}
-    
+
 	toggleLanguage() {
 		const langs = this.app.getService("locale");
 		const value = this.getRoot().queryView({ name: "lang" }).getValue();

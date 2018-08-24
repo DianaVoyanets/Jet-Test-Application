@@ -47,5 +47,17 @@ export default {
 	"Size": "Size",
 	"Date of birth": "Date of birth",
 	"Status Type": "Status Type",
-	"Activity Type": "Activity Type"
+	"Activity Type": "Activity Type",
+	"Add activities type": "Add activities type",
+	"Add statuses type": "Add status type",
+	"All": "All",
+	"Overdue": "Overdue",
+	"Today": "Today",
+	"Tomorrow": "Tomorrow",
+	"This week": "This week",
+	"This month": "This month",
+	"CompletedForm": "Completed",
+	"Edit activity": "Edit activity",
+	"Type": "Type",
+	"Data": "Data"
 };

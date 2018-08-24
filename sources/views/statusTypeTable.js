@@ -1,20 +1,12 @@
-import {JetView} from "webix-jet";
+import StatusesActivitiesTable from "views/statuses_activities_type_table";
 import {status_collection} from "models/status-collection";
 
-export default class statusTypeTable extends JetView {
-	config() {
-		return {
-			view: "datatable",
-			localId: "statusTypeTable",
-			columns: [
-				{id:"id",header:""},
-				{id:"Value",header:"Value",width: 300},
-				{id:"Icon",header:"Icon",width: 300},
-				{id:"trash-icon",header: "",template: "{common.trashIcon()}",fillspace:true}
-			],
-		};
-	}
+export default class StatusTypeTable extends StatusesActivitiesTable {
 	init() {
-		this.$$("statusTypeTable").sync(status_collection);
+		var statusTypesTable = this.getRoot();
+		statusTypesTable.sync(status_collection);
+	}
+	remove(id) {
+		status_collection.remove(id);
 	}
 } 

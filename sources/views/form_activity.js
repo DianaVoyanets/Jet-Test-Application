@@ -5,6 +5,7 @@ import {contacts_collection} from "models/contacts-collection";
 
 export default class PopupView extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
 		return {
 			view:"window", 
 			move:true,
@@ -16,14 +17,14 @@ export default class PopupView extends JetView {
 				view:"form",
 				localId: "form",
 				elements:[
-					{ view:"textarea",label:"Details", name:"Details",invalidMessage:"Type can not be empty",required:true},
-					{ view:"combo", label:"Type", name:"TypeID",options: { body:{template:"#Value#",data:activity_type_collection}},invalidMessage:"Type can not be empty",required:true},
-					{ localId: "contact",view:"combo", label:"Contacts", name:"ContactID",options: { body:{template:"#FirstName#"+ " " + "#LastName#",data:contacts_collection}},invalidMessage:"Contact can not be empty",required:true},
+					{ view:"textarea",labelWidth:100,label:_("Details"), name:"Details",invalidMessage:"Type can not be empty",required:true},
+					{ view:"combo", labelWidth:100,label:_("Type"), name:"TypeID",options: { body:{template:"#Value#",data:activity_type_collection}},invalidMessage:"Type can not be empty",required:true},
+					{ localId: "contact",labelWidth:100,view:"combo", label:_("Contacts"), name:"ContactID",options: { body:{template:"#FirstName#"+ " " + "#LastName#",data:contacts_collection}},invalidMessage:"Contact can not be empty",required:true},
 					{ margin:5, cols:[
-						{ view:"datepicker", label:"Data",name:"DueDate",format:"%d-%m-%Y"},
+						{ view:"datepicker", labelWidth:100,label:_("Data"),name:"DueDate",format:"%d-%m-%Y"},
 						//{ view:"datepicker", label:"Time",type:"time",name: "Time"}
 					]},
-					{view: "checkbox",label:"Completed",name:"State",css:"checkboxLabel"},
+					{view: "checkbox",labelWidth:104,label:_("CompletedForm"),name:"State",css:"checkboxLabel"},
 					{ cols: [
 						{view:"spacer"},
 						{view:"button",localId:"add_save_button",width: 110,
@@ -31,7 +32,7 @@ export default class PopupView extends JetView {
 								this.saveDate();
 							}
 						},
-						{view:"button",value: "Cancel",width: 110,click:()=> this.$$("form-popup").hide()},
+						{view:"button",value: _("Cancel"),width: 110,click:()=> this.$$("form-popup").hide()},
 					]}
 				],
 				rules: {
@@ -66,6 +67,7 @@ export default class PopupView extends JetView {
 	}
     
 	showWindow(id) {
+		const _ = this.app.getService("locale")._;
 		if (id) {
 			let values = activity_collection.getItem(id);
 			this.getForm().setValues(values);
@@ -73,22 +75,23 @@ export default class PopupView extends JetView {
 			this.getForm().clear();
 		}
 		this.getRoot().show();
-		this.$$("add_save_button").setValue(id ? "Save" : "Add");
-		this.$$("form-popup").getHead().setHTML(id ? "Edit activity" : "Add activity");
+		this.$$("add_save_button").setValue(id ? _("Save") : _("Add"));
+		this.$$("form-popup").getHead().setHTML(id ? _("Edit activity") : _("Add activity"));
 	}
     
 	showContactsWindow(id) {
-		if (typeof(id) == "string" ) {
-			this.getForm().setValues({ ContactID: id });
-		} else {
+		const _ = this.app.getService("locale")._;
+		if (typeof(id) === "object") {
 			var values = activity_collection.getItem(id);
-			this.getForm().setValues(values);
-            
+			this.getForm().setValues({ ContactID: id });
+			this.$$("form").setValues(values);
+		} else {
+			this.getForm().setValues({ ContactID: id });
 		}
 		this.$$("contact").disable();
 		this.getRoot().show();
-		this.$$("add_save_button").setValue(typeof(id) === "string" ? "Add" : "Save");
-		this.$$("form-popup").getHead().setHTML(typeof(id) === "string"  ? "Add activity" : "Edit activity");
+		this.$$("add_save_button").setValue(typeof(id) === "object" ? _("Save") : _("Add"));
+		this.$$("form-popup").getHead().setHTML(typeof(id) === "object" ? _("Edit activity") : _("Add activity"));
 	}
     
 	hideWindow() {

@@ -7,7 +7,7 @@ import {files_collection} from "models/files";
 
 export default class ContactsInformation extends JetView {
 	config() {
-        const _ = this.app.getService("locale")._;
+		const _ = this.app.getService("locale")._;
 
 		var toolbar = {
 			view: "toolbar",

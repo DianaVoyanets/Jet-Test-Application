@@ -1,10 +1,7 @@
 export default {
-	/*app*/
 	"Contacts" : "Контакты",
 	"Activities": "Активности",
 	"Settings" : "Настройки",
-    
-	/*Contacts*/
 	"Delete" : "Удалить",
 	"Edit": "Изменить",
 	"Add activity": "Добавить активность",
@@ -25,17 +22,14 @@ export default {
 	"Birthday": "Дата рождения",
 	"Change photo": "Изменить фото",
 	"Delete photo": "Удалить фото",
-	"Cancel": "Отмена",
+	"Cancel": "Отменить",
 	"OK": "Да",
-	"Completed": "Завершенный",
+	"Completed": "Завершенные",
 	"Language": "Язык",
 	"English": "Английский",
 	"Russian": "Русский",
 	"Upload file": "Загрузить файл",
 	"Activity type": "Тип активности",
-
-	/*Activities*/
-    
 	"Due data": "Срок",
 	"Details": "Детали",
 	"Contact": "Контакт",
@@ -47,5 +41,19 @@ export default {
 	"Location": "Местонахождение",
 	"Date of birth": "Дата рождения",
 	"Status Type": "Типы статусов",
-	"Activity Type": "Типы активностей"
+	"Activity Type": "Типы активностей",
+	"Add activities type": "Добавить тип активности",
+	"Add statuses type": "Добавить тип статуса",
+	"All": "Все",
+	"Overdue": "Просроченные",
+	"Today": "Сегодня",
+	"Tomorrow": "Завтра",
+	"This week": "На этой неделе",
+	"This month": "В этом месяце",
+	"CompletedForm": "Завершенный",
+	"Type": "Тип",
+	"Data": "Дата",
+	"Value": "Значение",
+	"Icon": "Значок",
+	"Edit activity": "Добавить активность"
 };

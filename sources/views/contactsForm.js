@@ -15,16 +15,16 @@ export default class ContactsForm extends JetView {
 					{view:"text",labelWidth:135,label:_("First name"),name:"FirstName",invalidMessage:"First Name can not be empty",required:true},
 					{view:"text",labelWidth:135,label:_("Last name"),name:"LastName",invalidMessage:"Last Name can not be empty",required:true},
 					{view:"datepicker",labelWidth:135,label:_("Joining date"),name:"StartDate"},
-					{view:"combo",labelWidth:135,label:_("Status"),name:"StatusID",options: { body:{template:"#Value#"+ " " + "#Icon#",data:status_collection}}},
+					{view:"combo",labelWidth:135,label:_("Status"),name:"StatusID",options: { body:{template:"#Value#",data:status_collection}}},
 					{view:"text",labelWidth:135,label:_("Job"),name:"Job"},
 					{view:"text",labelWidth:135,label:_("Company"),name:"Company"},
 					{view:"text",labelWidth:135,label:_("Website"),name:"Website"},
 					{view:"text",labelWidth:135,label:_("Address"),name:"Address"}
 				]},
 				{ margin: 15,rows: [
-					{ view:"text",labelWidth:135,label:_("Email"),name:"Email",invalidMessage: ""},
+					{ view:"text",labelWidth:135,label:_("Email"),name:"Email",placeholder:"someone@example.com:",required:true},
 					{ view:"text",labelWidth:135,label:_("Skype"),name:"Skype"},
-					{ view:"text",labelWidth:135,label:_("Phone"),name:"Phone",invalidMessage: "Phone number can not be string"},
+					{ view:"text",labelWidth:135,label:_("Phone"),name:"Phone",invalidMessage: "Phone number can not be string",placeholder:"123-456-7890",required:true},
 					{ view:"datepicker",labelWidth:135,label:_("Birthday"),name: "Birthday",format:"%d-%m-%Y"},
 					{cols:[
 						{ localId:"userPhotoForm",width:200,height:150,
@@ -71,9 +71,6 @@ export default class ContactsForm extends JetView {
 						{ view: "button",localId:"add_save_button",
 							click:() => {
 								this.saveDate();
-								// contacts_collection.data.attachEvent("onIdChange",(oldid,newid) => {
-								// 	this.show("/top/contacts?id=" + newid + "/contactsInformation");
-								// });
 							}
 						}
 					]},
@@ -83,7 +80,7 @@ export default class ContactsForm extends JetView {
 				"FirstName": webix.rules.isNotEmpty,
 				"LastName": webix.rules.isNotEmpty,
 				"Email": webix.rules.isEmail,
-				"Phone": webix.rules.isNumber
+				"Phone": webix.rules.isNumber && webix.rules.isNotEmpty
 			},
 		};
         

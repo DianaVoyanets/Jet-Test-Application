@@ -1,7 +1,7 @@
 import {JetView} from "webix-jet";
 import {activity_type_collection} from "models/activityType-collection";
 import {activity_collection} from "models/activity-collection";
-import PopupView from "./form-activity";
+import PopupView from "./form_activity";
 import {files_collection} from "../models/files";
 
 export default class contactsMultiview extends JetView {
@@ -66,9 +66,9 @@ export default class contactsMultiview extends JetView {
 							view: "datatable",
 							localId: "filesDatatable",
 							columns: [
-								{id:"name",header:[_("Name"),{content:"textFilter"}],fillspace:true,sort:"string"},
-								{id:"lastModifiedDate",header:[_("Change date"),{ content:"datepickerFilter"}],width: 150,format: "%d-%m-%Y",sort:"date"},
-								{id:"size",header:[_("Size"),{content:"numberFilter"}],width: 150,sort:"int"},
+								{id:"name",header:_("Name"),fillspace:true},
+								{id:"lastModifiedDate",header:_("Change date"),width: 150,format: "%d-%m-%Y"},
+								{id:"size",header:_("Size"),width: 150},
 								{id:"trash-icon",header: "",template: "{common.trashIcon()}"}
 							],
 							onClick: {
