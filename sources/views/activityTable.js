@@ -23,8 +23,7 @@ export default class DataView extends JetView {
 				on:{
 					onChange:() =>
 						this.$$("activityDataTable").filterByAll()
-				}
-				},
+				}},
 				{ view: "button",name:"Add",id:"add_button",type:"iconButton",icon: "plus",label: _("Add activity"),autowidth:true,
 					click:() => {
 						this._jetPopup.showWindow();

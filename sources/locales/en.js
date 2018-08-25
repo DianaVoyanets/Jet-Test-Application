@@ -59,5 +59,6 @@ export default {
 	"CompletedForm": "Completed",
 	"Edit activity": "Edit activity",
 	"Type": "Type",
-	"Data": "Data"
+	"Data": "Data",
+	"Add new contact": "Add new contact"
 };

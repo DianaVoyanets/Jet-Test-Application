@@ -24,15 +24,15 @@ export default class PopupView extends JetView {
 						{ view:"datepicker", labelWidth:100,label:_("Data"),name:"DueDate",format:"%d-%m-%Y"},
 						//{ view:"datepicker", label:"Time",type:"time",name: "Time"}
 					]},
-					{view: "checkbox",labelWidth:104,label:_("CompletedForm"),name:"State",css:"checkboxLabel"},
+					{ view: "checkbox",labelWidth:104,label:_("CompletedForm"),name:"State",css:"checkboxLabel"},
 					{ cols: [
-						{view:"spacer"},
-						{view:"button",localId:"add_save_button",width: 110,
+						{ view:"spacer"},
+						{ view:"button",localId:"add_save_button",width: 110,
 							click: () => {
 								this.saveDate();
 							}
 						},
-						{view:"button",value: _("Cancel"),width: 110,click:()=> this.$$("form-popup").hide()},
+						{ view:"button",value: _("Cancel"),width: 110,click:()=> this.$$("form-popup").hide()},
 					]}
 				],
 				rules: {

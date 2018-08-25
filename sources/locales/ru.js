@@ -55,5 +55,6 @@ export default {
 	"Data": "Дата",
 	"Value": "Значение",
 	"Icon": "Значок",
-	"Edit activity": "Добавить активность"
+	"Edit activity": "Добавить активность",
+	"Add new contact": "Добавить новый контакт"
 };
