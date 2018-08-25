@@ -7,7 +7,7 @@ export default class Contacts extends JetView {
 
 		var contactsList = {
 			rows: [
-				{view:"text", localId:"list_input",placeholder: "search by contacts",
+				{view:"search", localId:"search_contacts",placeholder: "search...",
 					on: {
 						"onTimedKeyPress":function() {
 							var value = this.getValue().toLowerCase();
