@@ -60,5 +60,7 @@ export default {
 	"Edit activity": "Edit activity",
 	"Type": "Type",
 	"Data": "Data",
-	"Add new contact": "Add new contact"
+	"Add new contact": "Add new contact",
+	"Icon": "Icon",
+	"Value": "Value"
 };
