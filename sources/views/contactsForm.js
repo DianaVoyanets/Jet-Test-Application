@@ -24,7 +24,7 @@ export default class ContactsForm extends JetView {
 				{ margin: 15,rows: [
 					{ view:"text",labelWidth:135,label:_("Email"),name:"Email",placeholder:"someone@example.com:",required:true},
 					{ view:"text",labelWidth:135,label:_("Skype"),name:"Skype"},
-					{ view:"text",labelWidth:135,label:_("Phone"),name:"Phone",placeholder:"375-25-1234567",pattern:"###-## #######"},
+					{ view:"text",labelWidth:135,label:_("Phone"),name:"Phone",placeholder:"375-25-1234567", pattern:{ mask:"###-## #######", allow:/[0-9]/g}},
 					{ view:"datepicker",labelWidth:135,label:_("Birthday"),name: "Birthday",format:"%d-%m-%Y"},
 					{cols:[
 						{ localId:"userPhotoForm",width:200,height:150,
