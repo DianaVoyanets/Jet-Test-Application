@@ -97,12 +97,12 @@ export default class contactsMultiview extends JetView {
 									onBeforeFileAdd: (upload) => {
 										let file = upload.file;
 										let reader = new FileReader();
-										
 										reader.onload = () => {
 											let date = webix.i18n.dateFormatStr(new Date());
 											files_collection.add({ name: file.name,lastModifiedDate: date,size: file.size,ContactID:this.getId() });
 										};
 										reader.readAsDataURL(file); 
+
 										return false;
 									}
 								}

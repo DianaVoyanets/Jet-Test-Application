@@ -53,6 +53,7 @@ export default class ContactsInformation extends JetView {
 				type: "icon",
 				icon: "edit",
 				label: _("Edit"),
+
 				width: 120,
 				click: () => {
 					this.show(`contactsForm?id=${this.getId()}`);
