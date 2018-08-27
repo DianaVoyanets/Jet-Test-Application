@@ -56,5 +56,6 @@ export default {
 	"Data": "Data",
 	"Add new contact": "Add new contact",
 	"Icon": "Icon",
-	"Value": "Value"
+	"Value": "Value",
+	"Add contact": "Add contact"
 };
