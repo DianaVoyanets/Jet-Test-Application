@@ -12,6 +12,8 @@ export default class Contacts extends JetView {
 						"onTimedKeyPress":function() {
 							var value = this.getValue().toLowerCase();
 							this.$scope.$$("contacts-list").filter((obj) => {
+								let DateParser = webix.Date.dateToStr("%d-%m-%Y");
+								obj.DateOfBirthday  = DateParser(obj.Birthday);
 								for (let key in obj) {
 									if (key !== "id" && key !== "StatusID" && key !== "Photo" && obj[key].toString().toLowerCase().indexOf(value) !== -1)
 										return true;
