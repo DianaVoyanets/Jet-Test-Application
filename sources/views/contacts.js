@@ -39,7 +39,6 @@ export default class Contacts extends JetView {
 							this.setParam("id", id, true);
 						},
 					},
-                
 				},
 				{ 
 					view: "button",
@@ -50,6 +49,7 @@ export default class Contacts extends JetView {
 					css: "add_contact",
 					width: 350,
 					click: () => {
+						this.app.callEvent("onClickContactsForm", []);
 						this.show("contactsForm");
 					} 
 				}]
@@ -73,6 +73,10 @@ export default class Contacts extends JetView {
 	init() {
 		this.getContactsList().sync(contacts_collection);
 		this.on(this.app,"onDataDelete",() => this.getContactsList().select(contacts_collection.getFirstId()));
+        
+		contacts_collection.data.attachEvent("onIdChange", (oldId,newId) => {
+			this.$$("contacts-list").select(newId);
+		});
 	}
 
 	urlChange() {

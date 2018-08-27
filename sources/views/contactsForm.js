@@ -7,7 +7,7 @@ export default class ContactsForm extends JetView {
 
 		const _ = this.app.getService("locale")._;
         
-		var contactsForm =  {
+		var contactsForm = {
 			view: "form",
 			localId: "contacts_form",
 			cols: [
@@ -24,7 +24,7 @@ export default class ContactsForm extends JetView {
 				{ margin: 15,rows: [
 					{ view:"text",labelWidth:135,label:_("Email"),name:"Email",placeholder:"someone@example.com:",required:true},
 					{ view:"text",labelWidth:135,label:_("Skype"),name:"Skype"},
-					{ view:"text",labelWidth:135,label:_("Phone"),name:"Phone",invalidMessage: "Phone number can not be string",placeholder:"123-456-7890",required:true},
+					{ view:"text",labelWidth:135,label:_("Phone"),name:"Phone",placeholder:"375-25-1234567",pattern:"###-## #######"},
 					{ view:"datepicker",labelWidth:135,label:_("Birthday"),name: "Birthday",format:"%d-%m-%Y"},
 					{cols:[
 						{ localId:"userPhotoForm",width:200,height:150,
@@ -80,7 +80,6 @@ export default class ContactsForm extends JetView {
 				"FirstName": webix.rules.isNotEmpty,
 				"LastName": webix.rules.isNotEmpty,
 				"Email": webix.rules.isEmail,
-				"Phone": webix.rules.isNumber && webix.rules.isNotEmpty
 			},
 		};
         
@@ -114,12 +113,20 @@ export default class ContactsForm extends JetView {
 		const _ = this.app.getService("locale")._;
 		let id = this.getParam("id");
 		contacts_collection.waitData.then(() => {
-			this.getContactsForm().setValues(contacts_collection.getItem(id));
-			this.getUserPhotoForm().setValues({src: contacts_collection.getItem(id).Photo});
+			if (id) {
+				this.getContactsForm().setValues(contacts_collection.getItem(id));
+				this.getUserPhotoForm().setValues({src: contacts_collection.getItem(id).Photo});
+			}
+			this.$$("add_save_button").setValue(id ? _("Save") : _("Add"));
+			this.$$("edit_add_label").setValue(id ? _("Edit contact") : _("Add contact"));
 		});
-		this.$$("add_save_button").setValue(id ? _("Save") : _("Add"));
-		this.$$("edit_add_label").setValue(id ? _("Edit contact") : _("Add new contact"));
+		this.on(this.app,"onClickContactsForm",() => {
+			this.$$("contacts_form").clear();
+			this.$$("add_save_button").setValue( _("Add"));
+			this.$$("edit_add_label").setValue( _("Add new contact"));
+		});
 	}
+
     
 	saveDate() {
 		if (this.getContactsForm().validate()) {

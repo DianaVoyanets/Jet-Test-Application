@@ -22,7 +22,7 @@ export default class PopupView extends JetView {
 					{ localId: "contact",labelWidth:100,view:"combo", label:_("Contacts"), name:"ContactID",options: { body:{template:"#FirstName#"+ " " + "#LastName#",data:contacts_collection}},invalidMessage:"Contact can not be empty",required:true},
 					{ margin:5, cols:[
 						{ view:"datepicker", labelWidth:100,label:_("Data"),name:"DueDate",format:"%d-%m-%Y"},
-						//{ view:"datepicker", label:"Time",type:"time",name: "Time"}
+						{ view:"datepicker", label:"Time",type:"time",name: "Time"}
 					]},
 					{ view: "checkbox",labelWidth:104,label:_("CompletedForm"),name:"State",css:"checkboxLabel"},
 					{ cols: [
@@ -55,12 +55,14 @@ export default class PopupView extends JetView {
 	}
     
 	saveDate() {
+		var values = this.$$("form").getValues();
+		values.Time = webix.i18n.timeFormatStr(values.Time);
 		if (this.getForm().validate()) {
 			if (!this.getValues().id) {
-				activity_collection.add(this.getValues());
+				activity_collection.add(values);
 			}
 			else {
-				activity_collection.updateItem(this.getValues().id,this.getValues());
+				activity_collection.updateItem(values.id, values);
 			}
 			this.hideWindow();
 		}

@@ -86,14 +86,14 @@ export default class DataView extends JetView {
 			this.$$("selector"),
 			{ compare: function(value,filter,obj) {
 				let dueDate = obj.DueDate;
-				let nowDate = new Date();
+				let currentDate = new Date();
 				switch(filter) {
-					case "overdue": return nowDate - dueDate > 0 && obj.State === "0";
+					case "overdue": return currentDate - dueDate > 0 && obj.State === "0";
 					case "completed": return obj.State === "1";
-					case "today": return webix.Date.equal(webix.Date.dayStart(dueDate),webix.Date.dayStart(nowDate));
-					case "tomorrow": return webix.Date.equal( webix.Date.dayStart( dueDate), webix.Date.add( webix.Date.dayStart( nowDate), 1, "day"));
-					case "week": return webix.Date.equal(webix.Date.weekStart(dueDate), webix.Date.weekStart(nowDate));
-					case "month": return webix.Date.equal(webix.Date.monthStart(dueDate), webix.Date.monthStart(nowDate));
+					case "today": return webix.Date.equal(webix.Date.dayStart(dueDate),webix.Date.dayStart(currentDate));
+					case "tomorrow": return webix.Date.equal( webix.Date.dayStart( dueDate), webix.Date.add( webix.Date.dayStart( currentDate), 1, "day"));
+					case "week": return webix.Date.equal(webix.Date.weekStart(dueDate), webix.Date.weekStart(currentDate));
+					case "month": return webix.Date.equal(webix.Date.monthStart(dueDate), webix.Date.monthStart(currentDate));
 					default: return true;
 				}
 			}},
