@@ -1,16 +1,17 @@
 import {JetView} from "webix-jet";
 import {activity_type_collection} from "models/activityType-collection";
 import {activity_collection} from "models/activity-collection";
-import PopupView from "./form-activity";
+import PopupView from "./form_activity";
 import {files_collection} from "../models/files";
 
 export default class contactsMultiview extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
 		var contactsTabview = {
 			view: "tabview",
 			cells: [
 				{
-					header: "Activities",
+					header: _("Activities"),
 					body: {
 						rows: [{
 							view: "datatable",
@@ -49,7 +50,7 @@ export default class contactsMultiview extends JetView {
 						},
 						{cols:[
 							{ view:"spacer" }, { view:"spacer" },
-							{ view:"button",type:"iconButton",icon: "plus",label: "Add activity",width:120,
+							{ view:"button",type:"iconButton",icon: "plus",label: _("Add activity"),autowidth:true,
 								click: () => {
 									this._jetPopup.showContactsWindow(this.getId());
 								}
@@ -59,15 +60,15 @@ export default class contactsMultiview extends JetView {
 					},
 				},
 				{
-					header: "Files",
+					header: _("Files"),
 					body: {
 						rows:[{
 							view: "datatable",
 							localId: "filesDatatable",
 							columns: [
-								{id:"name",header:["Name",{content:"textFilter"}],fillspace:true,sort:"string"},
-								{id:"lastModifiedDate",header:["Change date",{ content:"datepickerFilter"}],width: 150,format: "%d-%m-%Y",sort:"date"},
-								{id:"size",header:["Size",{content:"numberFilter"}],width: 150,sort:"int"},
+								{id:"name",header:_("Name"),fillspace:true},
+								{id:"lastModifiedDate",header:_("Change date"),width: 150,format: "%d-%m-%Y"},
+								{id:"size",header:_("Size"),width: 150},
 								{id:"trash-icon",header: "",template: "{common.trashIcon()}"}
 							],
 							onClick: {
@@ -88,16 +89,20 @@ export default class contactsMultiview extends JetView {
 							{view: "spacer"},
 							{
 								view: "uploader",
-								width: 120,
-								autosend:false,
-								label: "Upload file", 
+								autowidth:true,
+								label: _("Upload file"),
 								type: "iconButton", 
 								icon: "cloud-upload",
 								on: {
 									onBeforeFileAdd: (upload) => {
 										let file = upload.file;
-										let date = webix.i18n.dateFormatStr(new Date());
-										files_collection.add({ name: file.name,lastModifiedDate: date,size: file.size,ContactID:this.getId() });
+										let reader = new FileReader();
+										reader.onload = () => {
+											let date = webix.i18n.dateFormatStr(new Date());
+											files_collection.add({ name: file.name,lastModifiedDate: date,size: file.size,ContactID:this.getId() });
+										};
+										reader.readAsDataURL(file); 
+
 										return false;
 									}
 								}

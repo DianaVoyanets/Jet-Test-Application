@@ -7,6 +7,7 @@ import {files_collection} from "models/files";
 
 export default class ContactsInformation extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
 
 		var toolbar = {
 			view: "toolbar",
@@ -22,7 +23,7 @@ export default class ContactsInformation extends JetView {
 				view: "button",
 				type: "icon",
 				icon: "trash",
-				label: "Delete",
+				label: _("Delete"),
 				width: 120,
 				click: () => {
 					let app = this.app;
@@ -51,7 +52,8 @@ export default class ContactsInformation extends JetView {
 				view: "button",
 				type: "icon",
 				icon: "edit",
-				label: "Edit",
+				label: _("Edit"),
+
 				width: 120,
 				click: () => {
 					this.show(`contactsForm?id=${this.getId()}`);
@@ -67,7 +69,7 @@ export default class ContactsInformation extends JetView {
 				return (
 					`${obj.Photo && obj.Photo !==" "? 
 						`<figure class='user-photo'><img src='${obj.Photo}'><figcaption><b>${obj.Icon}</b></figcaption></figure>` : 
-						`<div class='webix_icon fa-info-circle user_photo_template'></div><div class="icon"><b>${obj.Icon}</b></div>`
+						`<div class='webix_icon fa-info-circle user_photo_template'></div><div class="photo_icon"><b>${obj.Icon}</b></div>`
 					}`
 				);
 			} 
@@ -80,14 +82,14 @@ export default class ContactsInformation extends JetView {
 				return (
 					`<div class='wrapper'> 
                         <div class="col-2">
-                            <span><i class='fa fa-envelope'> <b>Email:</b> </i>${obj.Email}</span>
-                            <span><i class='fa fa-skype'> <b>Skype:</b></i>${obj.Skype}</span>
-                            <span><i class='fa fa-tag'> <b>Job:</b></i>${obj.Job}</span>
+                            <span><i class='fa fa-envelope'> <b>${_("Email")}:</b> </i>${obj.Email}</span>
+                            <span><i class='fa fa-skype'> <b>${_("Skype")}:</b></i>${obj.Skype}</span>
+                            <span><i class='fa fa-tag'> <b>${_("Job")}:</b></i>${obj.Job}</span>
                         </div>
                         <div class="col-3">
-                            <span><i class='fa fa-briefcase'> <b>Company:</b></i>${obj.Company}</span>
-                            <span><i class='fa fa-calendar'> <b>Date of birth:</b> </i>${ webix.i18n.longDateFormatStr(obj.Birthday)}</span>
-                            <span><i class='fa fa-map-marker'> <b>Location:</b></i>${obj.Address}</span>
+                            <span><i class='fa fa-briefcase'> <b>${_("Company")}:</b></i>${obj.Company}</span>
+                            <span><i class='fa fa-calendar'> <b>${_("Date of birth")}:</b> </i>${ webix.i18n.longDateFormatStr(obj.Birthday)}</span>
+                            <span><i class='fa fa-map-marker'> <b>${_("Location")}:</b></i>${obj.Address}</span>
                         </div>
                     </div>`
 				);

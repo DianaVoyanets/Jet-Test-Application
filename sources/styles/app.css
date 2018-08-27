@@ -164,7 +164,7 @@ status_good{
 
 span.list-information {
     position: absolute;
-    padding-top: 22px;
+    padding-top: 10px;
 }
 
 .user-photo img {
@@ -172,9 +172,6 @@ span.list-information {
     height: 200px;
 }
 
-.user-photo figcaption {
-    text-align: center;
-}
 
 .add_contact.webix_el_button button{
 	text-align: center;
@@ -186,8 +183,8 @@ span.list-information {
 
 .user_photo_template {
     font-size: 170px;
-    width: 190px;
-    text-align: right;
+    width: 200px;
+    text-align: center;
     margin: 10px;
 }
 
@@ -195,10 +192,6 @@ span.list-information {
     font-size: 140px;
     width: 165px;
     text-align:center
-}
-
-.icon {
-    text-align: center;
 }
 
 .user_photo_form {
@@ -211,4 +204,13 @@ span.list-information {
     width: 60px;
     font-size: 70px;
     margin:8px;
+}
+
+figure {
+    text-align: center;
+}
+
+.photo_icon {
+    width: 220px;
+    text-align: center;
 }

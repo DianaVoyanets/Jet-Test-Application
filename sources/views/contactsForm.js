@@ -4,29 +4,32 @@ import {status_collection} from "models/status-collection";
 
 export default class ContactsForm extends JetView {
 	config() {
-		var contactsForm =  {
+
+		const _ = this.app.getService("locale")._;
+        
+		var contactsForm = {
 			view: "form",
 			localId: "contacts_form",
 			cols: [
 				{ margin: 15,rows: [
-					{view:"text",label:"First name",name:"FirstName",invalidMessage:"First Name can not be empty",width: 400},
-					{view:"text",label:"Last name",name:"LastName",invalidMessage:"Last Name can not be empty"},
-					{view:"datepicker", label:"Joining date",name:"StartDate"},
-					{view:"combo",label:"Status",name:"StatusID",options: { body:{template:"#Value#"+ " " + "#Icon#",data:status_collection}}},
-					{view:"text",label:"Job",name:"Job"},
-					{view:"text",label:"Company",name:"Company"},
-					{view:"text",label:"Website",name:"Website"},
-					{view:"text",label:"Address",name:"Address"}
+					{view:"text",labelWidth:135,label:_("First name"),name:"FirstName",invalidMessage:"First Name can not be empty",required:true},
+					{view:"text",labelWidth:135,label:_("Last name"),name:"LastName",invalidMessage:"Last Name can not be empty",required:true},
+					{view:"datepicker",labelWidth:135,label:_("Joining date"),name:"StartDate"},
+					{view:"combo",labelWidth:135,label:_("Status"),name:"StatusID",options: { body:{template:"#Value#",data:status_collection}}},
+					{view:"text",labelWidth:135,label:_("Job"),name:"Job"},
+					{view:"text",labelWidth:135,label:_("Company"),name:"Company"},
+					{view:"text",labelWidth:135,label:_("Website"),name:"Website"},
+					{view:"text",labelWidth:135,label:_("Address"),name:"Address"}
 				]},
 				{ margin: 15,rows: [
-					{ view:"text",label:"Email",name:"Email",invalidMessage: "",width: 380 },
-					{ view:"text",label:"Skype",name:"Skype"},
-					{ view:"text",label:"Phone",name:"Phone",invalidMessage: "Phone number can not be string"},
-					{ view:"datepicker",label:"Birthday",name: "Birthday",format:"%d-%m-%Y"},
+					{ view:"text",labelWidth:135,label:_("Email"),name:"Email",placeholder:"someone@example.com:",required:true},
+					{ view:"text",labelWidth:135,label:_("Skype"),name:"Skype"},
+					{ view:"text",labelWidth:135,label:_("Phone"),name:"Phone",placeholder:"375-25-1234567", pattern:{ mask:"###-## #######", allow:/[0-9]/g}},
+					{ view:"datepicker",labelWidth:135,label:_("Birthday"),name: "Birthday",format:"%d-%m-%Y"},
 					{cols:[
 						{ localId:"userPhotoForm",width:200,height:150,
 							template: (obj) => {
-								return `${obj.src ? 
+								return `${obj.src && obj.src !== " "? 
 									`<img class="user_photo_form" src='${obj.src}'>` : 
 									"<div class='webix_icon fa-info-circle form_user_photo'></div>"}`;
 							},
@@ -34,7 +37,7 @@ export default class ContactsForm extends JetView {
 						{ margin: 7,css:"change-remove-buttons",rows: [
 							{   view: "uploader",
 								accept:"image/jpeg, image/png",
-								value: "Change photo", 
+								value: _("Change photo"), 
 								autosend:false, 
 								multiple:false,
 								on: {
@@ -52,19 +55,19 @@ export default class ContactsForm extends JetView {
 									}
 								}
 							},
-							{view: "button",value: "Delete photo",width: 120,
+							{ view: "button",value: _("Delete photo"),width: 120,
 								click: () => {
 									let id = this.getParam("id",true);
 									this.getUserPhotoForm().setValues({});
 									if (id) {
-										this.getContactsForm().setValues({ Photo: "" }, true);
+										this.getContactsForm().setValues({ Photo: " " }, true);
 									}
 								}
 							}
 						]}
 					]},
 					{cols: [
-						{ view: "button",value: "Cancel",click:() => this.show("contactsInformation")},
+						{ view: "button",value: _("Cancel"),click:() => this.show("contactsInformation")},
 						{ view: "button",localId:"add_save_button",
 							click:() => {
 								this.saveDate();
@@ -77,7 +80,6 @@ export default class ContactsForm extends JetView {
 				"FirstName": webix.rules.isNotEmpty,
 				"LastName": webix.rules.isNotEmpty,
 				"Email": webix.rules.isEmail,
-				"Phone": webix.rules.isNumber
 			},
 		};
         
@@ -108,14 +110,23 @@ export default class ContactsForm extends JetView {
 	}
 
 	init() {
+		const _ = this.app.getService("locale")._;
 		let id = this.getParam("id");
 		contacts_collection.waitData.then(() => {
-			this.getContactsForm().setValues(contacts_collection.getItem(id));
-			this.getUserPhotoForm().setValues({src: contacts_collection.getItem(id).Photo});
+			if (id) {
+				this.getContactsForm().setValues(contacts_collection.getItem(id));
+				this.getUserPhotoForm().setValues({src: contacts_collection.getItem(id).Photo});
+			}
+			this.$$("add_save_button").setValue(id ? _("Save") : _("Add"));
+			this.$$("edit_add_label").setValue(id ? _("Edit contact") : _("Add contact"));
 		});
-		this.$$("add_save_button").setValue(id ? "Save" : "Add");
-		this.$$("edit_add_label").setValue(id ? "Edit contact" : "Add new contact");
+		this.on(this.app,"onClickContactsForm",() => {
+			this.$$("contacts_form").clear();
+			this.$$("add_save_button").setValue( _("Add"));
+			this.$$("edit_add_label").setValue( _("Add new contact"));
+		});
 	}
+
     
 	saveDate() {
 		if (this.getContactsForm().validate()) {
