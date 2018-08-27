@@ -1,10 +1,7 @@
 export default {
-	/*app*/
 	"Contacts" : "Contacts",
 	"Activities": "Activities",
 	"Settings" : "Settings",
-    
-	/*Contacts*/
 	"Delete" : "Delete",
 	"Edit": "Edit",
 	"Add activity": "Add activity",
@@ -34,9 +31,6 @@ export default {
 	"Upload file": "Upload file",
 	"Activity type": "Activity type",
 	"Location": "Location",
-
-	/*Activities*/
-    
 	"Due data": "Due data",
 	"Details": "Details",
 	"Contact": "Contact",

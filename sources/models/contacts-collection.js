@@ -10,7 +10,6 @@ export var contacts_collection = new webix.DataCollection({
 		$save: function(obj) {
 			var DateParser = webix.Date.dateToStr("%d-%m-%Y");
 			obj.Birthday = DateParser(obj.Birthday);
-
 		},
 	},
 });

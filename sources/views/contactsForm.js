@@ -55,7 +55,7 @@ export default class ContactsForm extends JetView {
 									}
 								}
 							},
-							{view: "button",value: _("Delete photo"),width: 120,
+							{ view: "button",value: _("Delete photo"),width: 120,
 								click: () => {
 									let id = this.getParam("id",true);
 									this.getUserPhotoForm().setValues({});
